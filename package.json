@@ -5,6 +5,7 @@
   "repository": "https://github.com/ASBCDev/kogouf.git",
   "scripts": {
     "batch": "node batch/index.js",
+    "debug-batch": "node --nolazy --debug-brk=5858 batch/index.js",
     "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
