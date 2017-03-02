@@ -2,13 +2,13 @@
   "name": "kogouf",
   "version": "0.0.1",
   "description": "The movie friendly finding application",
-  "main": "app.js",
+  "repository": "https://github.com/ASBCDev/kogouf.git",
   "scripts": {
     "batch": "node batch/index.js",
     "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "asbc?",
   "license": "ISC",
   "dependencies": {
     "async": "^2.1.5",
