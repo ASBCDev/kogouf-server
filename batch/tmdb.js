@@ -9,11 +9,12 @@ const TMDB_KEY = 'YOU_API_KEY_HERE';
  *
  * @returns Promise
  */
-tmdb.getTopRated = function() {
+tmdb.getTopRated = function () {
   return new Promise((resolve, reject) => {
-    console.log('GET /movie/top_rated');
+    const path = '/movie/top_rated';
+    console.log(`GET ${path}`);
     superagent
-      .get(`${TMDB_API}/movie/top_rated`)
+      .get(`${TMDB_API}${path}`)
       .query({
         api_key: TMDB_KEY,
         language: 'fr-FR'

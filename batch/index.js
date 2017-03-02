@@ -2,14 +2,14 @@ const async = require('async');
 const tmdb = require('./tmdb');
 
 const numberOfPage = 3;
-var currentPage = 0;
+let currentPage = 0;
 
 /**
  *
  * @param {object} results The TMDB response body
  * @returns Promise
  */
-function processMovies(results) {
+function processMovies (results) {
   currentPage++;
   return new Promise((resolve, reject) => {
     resolve();
@@ -20,7 +20,7 @@ function processMovies(results) {
  *
  * @param {function} done The async callback
  */
-function getMoviesIterator(done) {
+function getMoviesIterator (done) {
   tmdb.getTopRated()
     .then(processMovies)
     .then(done)
@@ -30,5 +30,5 @@ function getMoviesIterator(done) {
 async.whilst(
   () => currentPage < numberOfPage,
   getMoviesIterator,
-  err => console.log(err ? 'error' : 'everything done')
+  (err) => console.log(err ? 'error' : 'everything done')
 );
