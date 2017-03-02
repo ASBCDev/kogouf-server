@@ -1,0 +1,25 @@
+{
+    "extends": "eslint:recommended",
+    "env": {
+      "es6": true,
+      "node": true
+    },
+    "rules": {
+      "arrow-parens": "warn",
+      "arrow-spacing": ["error", { "before": true, "after": true }],
+      "indent": ["warn", 2],
+      "max-params": ["warn", 4],
+      "no-confusing-arrow": ["error", { "allowParens": true }],
+      "no-useless-computed-key": "error",
+      "no-useless-constructor": "warn",
+      "no-var": "error",
+      "object-shorthand": "warn",
+      "prefer-const": "error",
+      "prefer-rest-params": "warn",
+      "prefer-spread": "warn",
+      "rest-spread-spacing": "error",
+      "space-before-function-paren": "warn",
+      "space-in-parens": ["warn", "never"],
+      "template-curly-spacing": "error"
+    }
+}
