@@ -3,7 +3,7 @@ const superagent = require('superagent');
 const tmdb = {};
 
 const TMDB_API = 'https://api.themoviedb.org/3';
-const TMDB_KEY = 'YOU_API_KEY_HERE';
+const TMDB_KEY = process.env.TMDB_API_KEY;
 
 /**
  *
