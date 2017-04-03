@@ -1,3 +1,6 @@
+// load environment variables
+require('dotenv').config()
+
 const async = require('async');
 const tmdb = require('./tmdb');
 
