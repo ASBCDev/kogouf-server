@@ -3,9 +3,10 @@ require('dotenv').config()
 
 const async = require('async');
 const tmdb = require('./tmdb');
+const mongo = require('./mongo');
 
 const numberOfPage = 3;
-let currentPage = 0;
+let currentPage = 1;
 
 /**
  * Map the TMDB movie to fit the Mongo database
@@ -22,7 +23,7 @@ function mapMovie (movie) {
       title: movie.title,
       tmdb_id: movie.id,
       vote_average: movie.vote_average,
-      vote_count: 0,
+      vote_count: 0
     });
   });
 }
@@ -33,10 +34,7 @@ function mapMovie (movie) {
  * @returns Promise
  */
 function saveMovie (movie) {
-  return new Promise((resolve, reject) => {
-    // TODO: save movie to mongo
-    resolve();
-  });
+  return mongo.insertMovie(movie);
 }
 
 /**
@@ -61,14 +59,14 @@ function processMovies (results) {
   currentPage++;
   return new Promise((resolve, reject) => {
     async.eachSeries(results.results,
-    processMovie,
-    (err) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve();
-      }
-    });
+      processMovie,
+      (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
   });
 }
 
@@ -77,14 +75,16 @@ function processMovies (results) {
  * @param {function} done The async callback
  */
 function getMoviesIterator (done) {
-  tmdb.getTopRated()
+  tmdb.getTopRated(currentPage)
     .then(processMovies)
     .then(done)
     .catch(done);
 }
 
-async.whilst(
-  () => currentPage < numberOfPage,
-  getMoviesIterator,
-  (err) => console.log(err ? 'error' : 'everything done')
+mongo.emitter.on('db_connected', () => {
+  async.whilst(
+    () => currentPage <= numberOfPage,
+    getMoviesIterator,
+    (err) => console.log(err ? err : 'everything done')
+  )}
 );
