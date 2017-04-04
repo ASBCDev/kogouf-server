@@ -18,5 +18,8 @@
     "mongoose": "^4.8.5",
     "nodemon": "^1.11.0",
     "superagent": "^3.5.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0"
   }
 }
