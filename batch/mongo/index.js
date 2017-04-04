@@ -36,7 +36,7 @@ mongo.insertMovie = function (movie) {
         if (err) {
           reject(err);
         } else {
-          resolve(null, movieDAO);
+          resolve(movieDAO);
         }
       });
     });

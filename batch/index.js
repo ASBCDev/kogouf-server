@@ -46,7 +46,9 @@ function processMovie (movie, done) {
   tmdb.getMovie(movie.id)
     .then(mapMovie)
     .then(saveMovie)
-    .then(done)
+    .then((movieDAO) => {
+      done(null, movieDAO);
+    })
     .catch(done);
 }
 
@@ -58,13 +60,14 @@ function processMovie (movie, done) {
 function processMovies (results) {
   currentPage++;
   return new Promise((resolve, reject) => {
-    async.eachSeries(results.results,
+    async.mapSeries(
+      results.results,
       processMovie,
-      (err) => {
+      (err, movies) => {
         if (err) {
           reject(err);
         } else {
-          resolve();
+          resolve(movies);
         }
       });
   });
@@ -77,7 +80,9 @@ function processMovies (results) {
 function getMoviesIterator (done) {
   tmdb.getTopRated(currentPage)
     .then(processMovies)
-    .then(done)
+    .then((movies) => {
+      done(null, movies);
+    })
     .catch(done);
 }
 
@@ -85,6 +90,8 @@ mongo.emitter.on('db_connected', () =>
   async.whilst(
     () => currentPage <= numberOfPage,
     getMoviesIterator,
-    (err) => console.log(err ? err : 'everything done')
+    (err, movies) => {
+      console.log(err ? err : `Everything done, ${movies.length} movies processed`);
+    }
   )
 );
