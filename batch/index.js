@@ -81,10 +81,10 @@ function getMoviesIterator (done) {
     .catch(done);
 }
 
-mongo.emitter.on('db_connected', () => {
+mongo.emitter.on('db_connected', () =>
   async.whilst(
     () => currentPage <= numberOfPage,
     getMoviesIterator,
     (err) => console.log(err ? err : 'everything done')
-  )}
+  )
 );
