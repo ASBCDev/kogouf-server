@@ -1,5 +1,7 @@
+'use strict';
+
 // load environment variables
-require('dotenv').config()
+require('dotenv').config();
 
 const async = require('async');
 const tmdb = require('./tmdb');
